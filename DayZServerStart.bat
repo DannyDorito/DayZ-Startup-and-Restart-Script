@@ -42,8 +42,6 @@ if "%server_port_number%" == "0" (
 )
 set tasklist_name=IMAGENAME eq %exe_name%
 
-set full_path=%path_to_server_executable% and %exe_name%
-
 echo.
 echo Variable checks completed!
 echo.
@@ -76,7 +74,7 @@ echo Server is already running, running monitoring loop
 :: Restart/Crash Handler
 set /A crashes+=1
 timeout /t 5
-tasklist /FI "%full_path% eq %exe_name%" 2>NUL | find /I /N %exe_name%>NUL
+tasklist /FI "%tasklist_name%" 2>NUL | find /I /N "%exe_name%">NUL
 if "%ERRORLEVEL%"=="0" goto loop
 goto loop
 

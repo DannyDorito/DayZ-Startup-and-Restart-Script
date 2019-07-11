@@ -10,7 +10,7 @@ echo.
 :: Default is: DayZ Server
 set server_name=DayZ Server
 
-:: Path to the DayZ server executable, for example C:DayZServer\DayZServer_x64.exe
+:: Path to the DayZ server executable, for example C:DayZServer\
 set path_to_server_executable=changeme
 :: Name of executable
 :: Default is: DayZServer_x64.exe
@@ -40,13 +40,17 @@ if "%server_port_number%" == "0" (
 	set error=server_port_number
 	goto error
 )
+set tasklist_name=IMAGENAME eq %exe_name%
+
+set full_path=%path_to_server_executable% and %exe_name%
+
 echo.
 echo Variable checks completed!
 echo.
 set loops=0
 
 :loop
-C:\Windows\System32\tasklist /FI %path_to_server_executable% 2>NUL | C:\Windows\System32\find /I /N %exe_name%>NUL
+tasklist /FI "%tasklist_name%" 2>NUL | find /I /N "%exe_name%">NUL
 if "%ERRORLEVEL%" == "0" goto loop
 
 echo.
@@ -60,7 +64,7 @@ if "%loops%" NEQ "0" (
 :: Start the DayZ Server
 cd %path_to_server_executable%
 start "%server_name%" /min /wait %exe_name% -config=%config_name% -port=%server_port_number%  %extra_launch_parameters%
-echo To stop the server, close DayZServerStart.bat then the other tasks, otherwise it will restart
+echo To stop the server, close %~nx0 then the other tasks, otherwise it will restart
 echo.
 goto looping
 
@@ -71,8 +75,8 @@ echo Server is already running, running monitoring loop
 :looping
 :: Restart/Crash Handler
 set /A crashes+=1
-C:\Windows\System32\timeout /t 5
-C:\Windows\System32\tasklist /FI "%path_to_server_executable% eq %exe_name%" 2>NUL | C:\Windows\System32\find /I /N %exe_name%>NUL
+timeout /t 5
+tasklist /FI "%full_path% eq %exe_name%" 2>NUL | find /I /N %exe_name%>NUL
 if "%ERRORLEVEL%"=="0" goto loop
 goto loop
 

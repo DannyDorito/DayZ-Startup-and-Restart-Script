@@ -10,16 +10,18 @@ echo.
 :: Default is: DayZ Server
 set server_name=DayZ Server
 
-:: Path to the DayZ 3 server executable, for example C:DayZServer\DayZServer_x64.exe
+:: Path to the DayZ server executable, for example C:DayZServer\DayZServer_x64.exe
 set path_to_server_executable=changeme
 :: Name of executable
-:: Default  is DayZServer_x64.exe
+:: Default is: DayZServer_x64.exe
 set exe_name=DayZServer_x64.exe
 :: Extra launch parameters
 :: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
 set extra_launch_parameters="-dologs -adminlog -netlog -freezecheck"
 :: set the port number of the ARMA server, default ARMA is 2302
 set server_port_number=0
+:: set the DayZ config file, default is serverDZ.cfg
+set config_name=serverDZ.cfg
 ::
 :: DO NOT CHANGE ANYTHING BELOW THIS POINT
 :: UNLESS YOU KNOW WHAT YOU ARE DOING
@@ -57,7 +59,7 @@ if "%loops%" NEQ "0" (
 
 :: Start the DayZ Server
 cd %path_to_server_executable%
-start "%server_name%" /min /wait %exe_name% -config=serverDZ.cfg -port=%server_port_number%  %extra_launch_parameters%
+start "%server_name%" /min /wait %exe_name% -config=%config_name% -port=%server_port_number%  %extra_launch_parameters%
 echo To stop the server, close DayZServerStart.bat then the other tasks, otherwise it will restart
 echo.
 goto looping

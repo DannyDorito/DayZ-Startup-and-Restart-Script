@@ -72,7 +72,7 @@ echo Server is already running, running monitoring loop
 
 :looping
 :: Restart/Crash Handler
-set /A crashes+=1
+set /A loops+=1
 timeout /t 5
 tasklist /FI "%tasklist_name%" 2>NUL | find /I /N "%server_port_number%">NUL
 if "%ERRORLEVEL%"=="0" goto loop

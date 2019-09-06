@@ -92,7 +92,7 @@ ECHO Server is already running, running monitoring loop
 SET /A LOOPS+=1
 TIMEOUT /t 5
 TASKLIST /FI "%T_NAME%" 2>NUL | find /I /N "%PORT%">NUL
-IF "%ERRORLEVEL%"=="0" GOTO loop
+IF "%ERRORLEVEL%"=="0" GOTO LOOP
 GOTO loop
 
 :: Generic error catching

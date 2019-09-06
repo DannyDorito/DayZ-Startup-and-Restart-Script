@@ -4,14 +4,12 @@
 :: Minor edits by NIXON : https://github.com/niklashenrixon
 ::
 @ECHO off
+ECHO Pre startup initialised
 COLOR F
 
 :: Command window name, does not affect anything else
 :: Default is: DayZ Server
 SET S_NAME=DayZ Server
-TITLE %S_NAME%
-
-ECHO Pre startup initialised
 
 :: Path to the DayZ server executable, for example:  C:\Program Files (x86)\Steam\steamapps\common\DayZServer
 SET EXE_PATH=changeme
@@ -39,6 +37,7 @@ SET PROFILE=changeme
 ::               UNLESS YOU KNOW WHAT YOU ARE DOING                  ::
 :: ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ::
 
+TITLE %S_NAME%
 
 SET ERROR=""
 

@@ -5,6 +5,7 @@ Originally created for the ARMA 3 Exile Mod, now adapted for DayZ Servers!
 This is .bat file for **all** your DayZ Server startup needs!
 
 Created by: **Jstrow** and **DannyDorito** originally for [CSG Exile](https://www.csgcommunity.com)
+Contributor: **NIXON** [NIXON](https://github.com/niklashenrixon)
 
 Forking this repo will be public, **do not** put sensitive information such as passwords into your **public** repo.
 A better alternative is a private repo, which GitHub now offers free for all users, so download a copy of this one and create your own!
@@ -22,6 +23,7 @@ Click [Here](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script) f
 * Server startup - parameters
 * Crash/Restart monitor - this uses the Task Manager and not address pinging
 * The last start date & time of the server
+* Optional DayZ Standalone Launcher mod download server - Allows players to download mods through the DayZ SA Launcher
 
 ## Features to be added
 

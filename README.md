@@ -20,20 +20,16 @@ Click [Here](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script) f
 
 ## Features
 
-* Server startup - parameters
+* Server startup - parameters, mods, server mods, optional arguments for potential performance increase
 * Crash/Restart monitor - this uses the Task Manager and not address pinging
 * The last start date & time of the server
 * Optional DayZ Standalone Launcher mod download server - Allows players to download mods through the DayZ SA Launcher
-
-## Features to be added
-
-* Optional Features from the ARMA 3 Version!
 
 ## FAQ
 
 ### How do I use this
 
-1. Forking this repo will be public, **do not** put sensitive information such as passwords into your **public** repo. A better alternative is a private repo, which GitHub now offers free for all users, so download a copy of this one and create your own!
+1. Forking this repo will be public, **do not** put sensitive information such as passwords into your **public** repo or **any** repo.
 2. Download the latest version
 3. Place in a suitable directory, for example your Desktop
 4. Replace all of the variables that you require, e.g. ![set path_to_ServervarsArma3Profile=changeme](https://i.imgur.com/svri9W0.png) to: ![set path_to_ServervarsArma3Profile=C:\arma\CSG\Users\CSG\CSG.vars.Arma3Profile](https://i.imgur.com/p27kTKK.png)

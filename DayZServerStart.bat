@@ -31,6 +31,19 @@ SET CONFIG=serverDZ.cfg
 :: Profile name, e.g: MyFirstDayzServer
 SET PROFILE=changeme
 
+:: Enables the DayZ SA Launcher to download mods running on the server,
+:: For more info see: https://dayzsalauncher.com/#/tools
+:: Set to true to enable, false to disable
+:: Default is: false
+SET USE_DZSAL_MODSERVER=false
+
+:: Name of DayZ SA Launcher Mod Server exe
+:: Default is:DZSALModServer.exe
+SET EXE_DZSAL=DZSALModServer.exe
+
+:: Extra launch parameters
+:: For more info see command line parameters section of: https://dayzsalauncher.com/#/tools
+SET DZSAL_PARAMETERS=changeme
 
 :: ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ::
 ::             DO NOT CHANGE ANYTHING BELOW THIS POINT               ::
@@ -59,6 +72,13 @@ IF "%PROFILE%" == "changeme" (
 	GOTO ERROR
 	)
 
+IF "%USE_DZSAL_MODSERVER%" == "true" (
+	IF "%DZSAL_PARAMETERS%" == "changeme" (
+			SET ERROR=DZSAL_PARAMETERS
+      GOTO ERROR
+		)
+	)
+
 SET T_NAME=IMAGENAME eq %EXE%
 
 ECHO.
@@ -80,6 +100,11 @@ IF "%LOOPS%" NEQ "0" (
 CD %EXE_PATH%
 START "%S_NAME%" /wait %EXE% -config=%CONFIG% -profiles=%PROFILE% -port=%PORT% %PARAMETERS%
 ECHO To stop the server, close %~nx0 then the other tasks, otherwise it will restart
+
+IF "%USE_DZSAL_MODSERVER%" == "true" (
+    ECHO Starting Mod Server
+    START "%S_NAME%'s Mod Server" /wait %EXE_DZSAL% %DZSAL_PARAMETERS%
+  )
 ECHO.
 GOTO LOOPING
 

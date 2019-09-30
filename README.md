@@ -6,7 +6,7 @@ This is .bat file for **all** your DayZ Server startup needs!
 
 Created by: **Jstrow** and **DannyDorito** originally for [CSG Exile](https://www.csgcommunity.com)
 
-Contributor: **NIXON** [NIXON](https://github.com/niklashenrixon)
+Contributor: [NIXON](https://github.com/niklashenrixon)
 
 Forking this repo will be public, **do not** put sensitive information such as passwords into your **public** repo.
 A better alternative is a private repo, which GitHub now offers free for all users, so download a copy of this one and create your own!

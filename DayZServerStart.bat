@@ -27,7 +27,7 @@ set SERVERMODLIST=@ServerMod1; @ServerMod2; @ServerMod3;
 
 :: Extra launch parameters
 :: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
-SET PARAMETERS=-doLogs -adminLog -netLog -freezeCheck
+SET ADDITIONAL_PARAMETERS=-doLogs -adminLog -netLog -freezeCheck
 
 :: Set the port number of the DayZ server, default is 2302
 SET PORT=0
@@ -115,7 +115,7 @@ IF "%LOOPS%" NEQ "0" (
 
 :: Start the DayZ Server
 CD %EXE_PATH%
-START "%S_NAME%" /wait %EXE% -mod=%MODLIST% -config=%CONFIG% -profiles=%PROFILE% -port=%PORT% -serverMod=%SERVERMODLIST% %PARAMETERS%
+START "%S_NAME%" /wait %EXE% "-mod=%MODLIST%" "-config=%CONFIG%" "-profiles=%PROFILE%" "-port=%PORT%" "-serverMod=%SERVERMODLIST%" %ADDITIONAL_PARAMETERS%
 ECHO To stop the server, close %~nx0 then the other tasks, otherwise it will restart
 
 IF "%USE_DZSAL_MODSERVER%" == "true" (

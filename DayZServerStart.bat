@@ -18,6 +18,13 @@ SET EXE_PATH=changeme
 :: Default is: DayZServer_x64.exe
 SET EXE=DayZServer_x64.exe
 
+:: List of server side mods, Add the mod to modlist for example adding Mod3 to set modlist=@Mod1; @Mod2;
+:: You would do: set modlist=@Mod1; @Mod2; @Mod3;
+set MODLIST=@Mod1; @Mod2; @Mod3;
+:: List of server side mods, Add the mod to servermodlist for example adding ServerMod3 to set servermodlist=@ServerMod1; @ServerMod2;
+:: You would do: set servermodlist=@ServerMod1; @ServerMod2; @ServerMod3;
+set SERVERMODLIST=@ServerMod1; @ServerMod2; @ServerMod3;
+
 :: Extra launch parameters
 :: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
 SET PARAMETERS=-doLogs -adminLog -netLog -freezeCheck
@@ -72,6 +79,16 @@ IF "%PROFILE%" == "changeme" (
 	GOTO ERROR
 	)
 
+IF "%MODS%" == "@Mod1; @Mod2; @Mod3;" (
+	SET ERROR=MODS
+	GOTO ERROR
+)
+
+IF "%SERVERMODLIST%" == "@ServerMod1; @ServerMod2; @ServerMod3;" (
+	SET ERROR=SERVERMODLIST
+	GOTO ERROR
+)
+
 IF "%USE_DZSAL_MODSERVER%" == "true" (
 	IF "%DZSAL_PARAMETERS%" == "changeme" (
 			SET ERROR=DZSAL_PARAMETERS
@@ -98,7 +115,7 @@ IF "%LOOPS%" NEQ "0" (
 
 :: Start the DayZ Server
 CD %EXE_PATH%
-START "%S_NAME%" /wait %EXE% -config=%CONFIG% -profiles=%PROFILE% -port=%PORT% %PARAMETERS%
+START "%S_NAME%" /wait %EXE% -mod=%MODLIST% -config=%CONFIG% -profiles=%PROFILE% -port=%PORT% -serverMod=%SERVERMODLIST% %PARAMETERS%
 ECHO To stop the server, close %~nx0 then the other tasks, otherwise it will restart
 
 IF "%USE_DZSAL_MODSERVER%" == "true" (

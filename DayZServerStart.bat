@@ -4,38 +4,44 @@
 :: Minor edits by NIXON : https://github.com/niklashenrixon
 ::
 @ECHO off
-ECHO Pre startup initialised
 COLOR F
+ECHO MESSAGE: Pre startup initialised
 
 :: Command window name, does not affect anything else
 :: Default is: DayZ Server
 SET S_NAME=DayZ Server
 
-:: Path to the DayZ server executable, for example:  C:\Program Files (x86)\Steam\steamapps\common\DayZServer
+:: Path to the DayZ server executable, for example:  C:\Program Files (x86)\Steam\steamapps\common\DayZServer or C:\dayzserver
+:: Cannot be blank or 'changeme'
 SET EXE_PATH=changeme
 
 :: Name of executable
 :: Default is: DayZServer_x64.exe
+:: Cannot be blank
 SET EXE=DayZServer_x64.exe
 
-:: List of server side mods, Add the mod to modlist for example adding Mod3 to set modlist=@Mod1; @Mod2;
-:: You would do: set modlist=@Mod1; @Mod2; @Mod3;
+:: List of client side mods, Add the mod to modlist for example adding Mod3 to set modlist=@Mod1; @Mod2;
+:: You would do: set modlist=@Mod1; @Mod2; @Mod3
+:: Cannot be '@Mod1; @Mod2; @Mod3;'
 set MODLIST=@Mod1; @Mod2; @Mod3;
 :: List of server side mods, Add the mod to servermodlist for example adding ServerMod3 to set servermodlist=@ServerMod1; @ServerMod2;
-:: You would do: set servermodlist=@ServerMod1; @ServerMod2; @ServerMod3;
-set SERVERMODLIST=@ServerMod1; @ServerMod2; @ServerMod3;
+:: You would do: set SERVERMODLIST=@ServerMod1; @ServerMod2; @ServerMod3;
+set SERVERMODLIST=
 
 :: Extra launch parameters
 :: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
 SET ADDITIONAL_PARAMETERS=-doLogs -adminLog -netLog -freezeCheck
 
 :: Set the port number of the DayZ server, default is 2302
-SET PORT=0
+:: Cannot be blank or 0
+SET PORT=2302
 
 :: Set the DayZ config file, default is serverDZ.cfg
+:: Cannot be blank
 SET CONFIG=serverDZ.cfg
 
 :: Profile name, e.g: MyFirstDayzServer
+:: Cannot be blank or 'changeme'
 SET PROFILE=changeme
 
 :: Enables the DayZ SA Launcher to download mods running on the server,
@@ -62,44 +68,68 @@ TITLE %S_NAME%
 SET ERROR=""
 
 ECHO.
-ECHO Starting vars checks
+ECHO MESSAGE: Starting vars checks
 
 IF "%EXE_PATH%" == "changeme" (
 	SET ERROR=EXE_PATH
 	GOTO ERROR
-	)
+)
 
-IF "%PORT%" == "0" (
+IF [%EXE_PATH%] == [] (
+	SET ERROR=EXE_PATH
+	GOTO ERROR
+)
+
+IF [%EXE%] == [] (
+	SET ERROR=EXE
+	GOTO ERROR
+)
+
+IF [%CONFIG%] == [] (
+	SET ERROR=CONFIG
+	GOTO ERROR
+)
+
+IF %PORT% == 0 (
 	SET ERROR=PORT
 	GOTO ERROR
-	)
+)
+
+IF [%PORT%] == [] (
+	SET ERROR=PORT
+	GOTO ERROR
+)
 
 IF "%PROFILE%" == "changeme" (
 	SET ERROR=PROFILE
 	GOTO ERROR
-	)
+)
+
+IF [%PROFILE%] == [] (
+	SET ERROR=PROFILE
+	GOTO ERROR
+)
 
 IF "%MODS%" == "@Mod1; @Mod2; @Mod3;" (
 	SET ERROR=MODS
 	GOTO ERROR
 )
 
-IF "%SERVERMODLIST%" == "@ServerMod1; @ServerMod2; @ServerMod3;" (
-	SET ERROR=SERVERMODLIST
-	GOTO ERROR
-)
-
 IF "%USE_DZSAL_MODSERVER%" == "true" (
 	IF "%DZSAL_PARAMETERS%" == "changeme" (
-			SET ERROR=DZSAL_PARAMETERS
-      GOTO ERROR
-		)
+		SET ERROR=DZSAL_PARAMETERS
+		GOTO ERROR
 	)
+	IF [%EXE_PATH%] == [] (
+		SET ERROR=DZSAL_PARAMETERS
+		GOTO ERROR
+	)
+)
 
 SET T_NAME=IMAGENAME eq %EXE%
 
 ECHO.
-ECHO Variable checks completed!
+ECHO MESSAGE: Variable checks completed!
 SET LOOPS=0
 
 :LOOP
@@ -107,27 +137,27 @@ TASKLIST /FI "%T_NAME%" 2>NUL | find /I /N "%PORT%">NUL
 IF "%ERRORLEVEL%" == "0" GOTO LOOP
 
 ECHO.
-ECHO Pre startup complete!
-ECHO Starting server at: %DATE%,%TIME%
+ECHO MESSAGE: Pre startup complete!
+ECHO MESSAGE: Starting server at: %DATE%, %TIME%
 IF "%LOOPS%" NEQ "0" (
 	ECHO Restarts: %LOOPS%
 )
 
 :: Start the DayZ Server
 CD %EXE_PATH%
-START "%S_NAME%" /wait %EXE% "-mod=%MODLIST%" "-config=%CONFIG%" "-profiles=%PROFILE%" "-port=%PORT%" "-serverMod=%SERVERMODLIST%" %ADDITIONAL_PARAMETERS%
-ECHO To stop the server, close %~nx0 then the other tasks, otherwise it will restart
+START "%S_NAME%" /wait %EXE% -mod=%MODLIST% -config=%CONFIG% -profiles=%PROFILE% -port=%PORT% -serverMod=%SERVERMODLIST% %ADDITIONAL_PARAMETERS%
+ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it will restart
 
 IF "%USE_DZSAL_MODSERVER%" == "true" (
-    ECHO Starting Mod Server
+    ECHO MESSAGE: Starting Mod Server
     START "%S_NAME%'s Mod Server" /wait %EXE_DZSAL% %DZSAL_PARAMETERS%
-  )
+)
 ECHO.
 GOTO LOOPING
 
 :: Monitoring Loop
 :LOOP
-ECHO Server is already running, running monitoring loop
+ECHO WARNING: Server is already running, running monitoring loop
 
 :: Restart/Crash Handler
 :LOOPING

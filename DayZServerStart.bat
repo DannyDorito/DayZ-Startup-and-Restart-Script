@@ -51,12 +51,34 @@ SET PROFILE=changeme
 SET USE_DZSAL_MODSERVER=false
 
 :: Name of DayZ SA Launcher Mod Server exe
-:: Default is:DZSALModServer.exe
+:: Default is: DZSALModServer.exe
 SET EXE_DZSAL=DZSALModServer.exe
 
 :: Extra launch parameters
 :: For more info see command line parameters section of: https://dayzsalauncher.com/#/tools
 SET DZSAL_PARAMETERS=changeme
+
+:: Steam automatic update for the server files
+:: Get from here https://developer.valvesoftware.com/wiki/SteamCMD
+:: Set to true to enable, false to disable
+:: Default is: false
+SET %USE_STEAM_UPDATER%=false
+
+:: Path to the DayZ server executable, for example:  C:\Program Files (x86)\SteamCMD
+SET %PATH_TO_STEAM_CMD_EXE%=changeme
+
+:: Name of the Steam account that SteamCMD uses
+:: It is highly advised that you use a separate Steam account for the DayZ server if you choose to use this feature
+:: 2FA may be an issues always please be careful with passwords
+SET %ACCOUNT_NAME%=changeme
+
+:: It is highly advised that you use a separate Steam account for the DayZ server
+:: Password of the Steam account that SteamCMD uses, 2FA may be an issues always please be careful with passwords
+SET %ACCOUNT_PASSWORD%=changeme
+
+:: Addition apps or mods that you wish SteamCMD to update for you, this will have to match the workshop item id, for example 2288339650 2288336145 for Namalsk
+SET %ADDITIONAL_ITEMS%=
+
 
 :: ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ::
 ::             DO NOT CHANGE ANYTHING BELOW THIS POINT               ::
@@ -126,11 +148,45 @@ IF "%USE_DZSAL_MODSERVER%" == "true" (
 	)
 )
 
+IF "%USE_STEAM_UPDATER%" == "true" (
+	IF "%PATH_TO_STEAM_CMD_EXE%" == "changeme" (
+		SET ERROR=USE_STEAM_UPDATER = true so, PATH_TO_STEAM_CMD_EXE
+		GOTO ERROR
+	)
+	IF "%ACCOUNT_NAME%" == "changeme" (
+		SET ERROR=USE_STEAM_UPDATER = true so, ACCOUNT_NAME
+		GOTO ERROR
+	)
+	IF "%ACCOUNT_PASSWORD%" == "changeme" (
+		SET ERROR=USE_STEAM_UPDATER = true so, ACCOUNT_PASSWORD
+		GOTO ERROR
+	)
+	IF [%PATH_TO_STEAM_CMD_EXE%] == [] (
+		SET ERROR=USE_STEAM_UPDATER = true so, PATH_TO_STEAM_CMD_EXE
+		GOTO ERROR
+	)
+	IF [%ACCOUNT_NAME%] == [] (
+		SET ERROR=USE_STEAM_UPDATER = true so, ACCOUNT_NAME
+		GOTO ERROR
+	)
+	IF [%ACCOUNT_PASSWORD%] == [] (
+		SET ERROR=USE_STEAM_UPDATER = true so, ACCOUNT_PASSWORD
+		GOTO ERROR
+	)
+)
+
 SET T_NAME=IMAGENAME eq %EXE%
 
 ECHO.
 ECHO MESSAGE: Variable checks completed!
 SET LOOPS=0
+
+IF "%USE_STEAM_UPDATER%" == "true" (
+	ECHO MESSAGE: Steam Automatic Update Starting
+	CD %PATH_TO_STEAM_CMD_EXE%
+	START /wait "SteamCMD.exe" +login %ACCOUNT_NAME% %ACCOUNT_PASSWORD% +force_install_dir %EXE_PATH% +app_update 223350 %ADDITIONAL_ITEMS% validate +quit
+	ECHO MESSAGE: Steam Automatic Update Completed
+)
 
 :LOOP
 TASKLIST /FI "%T_NAME%" 2>NUL | find /I /N "%PORT%">NUL
@@ -140,7 +196,7 @@ ECHO.
 ECHO MESSAGE: Pre startup complete!
 ECHO MESSAGE: Starting server at: %DATE%, %TIME%
 IF "%LOOPS%" NEQ "0" (
-	ECHO Restarts: %LOOPS%
+	ECHO MESSAGE: Restarts: %LOOPS%
 )
 
 :: Start the DayZ Server

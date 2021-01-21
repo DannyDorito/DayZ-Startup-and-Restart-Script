@@ -54,18 +54,18 @@ SET DZSAL_PARAMETERS=changeme
 :: Get from here https://developer.valvesoftware.com/wiki/SteamCMD
 :: Set to true to enable, false to disable
 :: Default is: false
-SET %USE_STEAM_UPDATER%=false
+SET USE_STEAM_UPDATER=false
 :: Path to the DayZ server executable, for example:  C:\Program Files (x86)\SteamCMD
-SET %PATH_TO_STEAM_CMD_EXE%=changeme
+SET PATH_TO_STEAM_CMD_EXE=changeme
 :: Name of the Steam account that SteamCMD uses
 :: It is highly advised that you use a separate Steam account for the DayZ server if you choose to use this feature
 :: 2FA may be an issues always please be careful with passwords
-SET %ACCOUNT_NAME%=changeme
+SET ACCOUNT_NAME=changeme
 :: It is highly advised that you use a separate Steam account for the DayZ server
 :: Password of the Steam account that SteamCMD uses, 2FA may be an issues always please be careful with passwords
-SET %ACCOUNT_PASSWORD%=changeme
+SET ACCOUNT_PASSWORD=changeme
 :: Addition apps or mods that you wish SteamCMD to update for you, this will have to match the workshop item id, for example 2288339650 2288336145 for Namalsk
-SET %ADDITIONAL_ITEMS%=
+SET ADDITIONAL_ITEMS%=
 
 :: If you are using the SQL backup set backup=true
 :: Default is false
@@ -246,6 +246,7 @@ IF "%USE_DZSAL_MODSERVER%" == "true" (
 )
 ECHO.
 GOTO LOOPING
+
 
 :: Monitoring Loop
 :LOOP

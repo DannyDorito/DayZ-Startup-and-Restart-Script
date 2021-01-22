@@ -65,7 +65,7 @@ SET ACCOUNT_NAME=changeme
 :: Password of the Steam account that SteamCMD uses, 2FA may be an issues always please be careful with passwords
 SET ACCOUNT_PASSWORD=changeme
 :: Addition apps or mods that you wish SteamCMD to update for you, this will have to match the workshop item id, for example 2288339650 2288336145 for Namalsk
-SET ADDITIONAL_ITEMS%=
+SET ADDITIONAL_ITEMS=
 
 :: If you are using the SQL backup set backup=true
 :: Default is false
@@ -76,7 +76,7 @@ set PATH_TO_SQL_BACKUP=changeme
 :: Default is false
 set MOVE_BACKUP=false
 :: directory to move the files FROM, for example C:ARMA/backup
-set Backup=changeme
+set BACKUP_FROM=changeme
 :: directory to move files TO, for example C:/dropbox
 set BACKUP_TO=changeme
 

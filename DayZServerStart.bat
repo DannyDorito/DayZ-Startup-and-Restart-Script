@@ -19,8 +19,7 @@ SET EXE_PATH=changeme
 SET EXE=DayZServer_x64.exe
 :: List of client side mods, Add the mod to modlist for example adding Mod3 to set modlist=@Mod1; @Mod2;
 :: You would do: set modlist=@Mod1; @Mod2; @Mod3
-:: Cannot be '@Mod1; @Mod2; @Mod3;'
-set MODLIST=@Mod1; @Mod2; @Mod3;
+set MODLIST=
 :: List of server side mods, Add the mod to servermodlist for example adding ServerMod3 to set servermodlist=@ServerMod1; @ServerMod2;
 :: You would do: set SERVERMODLIST=@ServerMod1; @ServerMod2; @ServerMod3;
 set SERVERMODLIST=
@@ -134,7 +133,7 @@ IF "%MODS%" == "@Mod1; @Mod2; @Mod3;" (
 	GOTO ERROR
 )
 
-IF "%USE_DZSAL_MODSERVER%" == "true" (
+IF "%USE_DZSAL_MODSERVER%" == true (
 	IF "%DZSAL_PARAMETERS%" == "changeme" (
 		SET ERROR=DZSAL_PARAMETERS
 		GOTO ERROR
@@ -145,7 +144,7 @@ IF "%USE_DZSAL_MODSERVER%" == "true" (
 	)
 )
 
-IF "%USE_STEAM_UPDATER%" == "true" (
+IF %USE_STEAM_UPDATER% == true (
 	IF "%PATH_TO_STEAM_CMD_EXE%" == "changeme" (
 		SET ERROR=USE_STEAM_UPDATER = true so, PATH_TO_STEAM_CMD_EXE
 		GOTO ERROR
@@ -172,8 +171,8 @@ IF "%USE_STEAM_UPDATER%" == "true" (
 	)
 )
 
-IF "%BACKUP%" == "true"(
-	IF "%MOVE_BACKUP%" == "true" (
+IF %BACKUP% == true (
+	IF %MOVE_BACKUP% == true (
 		IF "%BACKUP_FROM%" == "changeme" (
 			SET ERROR=BACKUP_FROM
 			GOTO ERROR
@@ -185,10 +184,6 @@ IF "%BACKUP%" == "true"(
 		IF "%BACKUP_TO%" == "changeme" (
 			SET ERROR=BACKUP_TO
 			GOTO BACKUP_TO
-		)
-		IF [%ACCOUNT_PASSWORD%] == [] (
-			SET ERROR=MOVE_BACKUP = true so, ACCOUNT_PASSWORD
-			GOTO ERROR
 		)
 	)
 	IF "%PATH_TO_SQL_BACKUP%" == "changeme" (
@@ -219,16 +214,16 @@ IF "%LOOPS%" NEQ "0" (
 )
 
 :: Uses https://www.redolive.com/utah-web-designers-blog/automated-mysql-backup-for-windows
-IF "%BACKUP%" == "true" (
+IF %BACKUP% == true (
 	ECHO MESSAGE: Starting Database Backup
 	START /wait %PATH_TO_SQL_BACKUP%
-	IF "%MOVE_BACKUP%" == "true" (
+	IF "%MOVE_BACKUP%" == true (
 		MOVE /wait /-Y  "%BACKUP_FROM%"*.* "%BACKUP_TO%"
 	)
 	ECHO MESSAGE: Database backup complete
 )
 
-IF "%USE_STEAM_UPDATER%" == "true" (
+IF %USE_STEAM_UPDATER% == true (
 	ECHO MESSAGE: Steam Automatic Update Starting
 	CD %PATH_TO_STEAM_CMD_EXE%
 	START /wait "SteamCMD.exe" +login %ACCOUNT_NAME% %ACCOUNT_PASSWORD% +force_install_dir %EXE_PATH% +app_update 223350 %ADDITIONAL_ITEMS% validate +quit
@@ -237,10 +232,10 @@ IF "%USE_STEAM_UPDATER%" == "true" (
 
 :: Start the DayZ Server
 CD %EXE_PATH%
-START "%S_NAME%" /wait %EXE% -mod=%MODLIST% -config=%CONFIG% -profiles=%PROFILE% -port=%PORT% -serverMod=%SERVERMODLIST% %ADDITIONAL_PARAMETERS%
+START "%S_NAME%" /wait %EXE_PATH%%EXE% -mod=%MODLIST% -config=%CONFIG% -profiles=%PROFILE% -port=%PORT% -serverMod=%SERVERMODLIST% %ADDITIONAL_PARAMETERS%
 ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it will restart
 
-IF "%USE_DZSAL_MODSERVER%" == "true" (
+IF %USE_DZSAL_MODSERVER% == true (
     ECHO MESSAGE: Starting Mod Server
     START "%S_NAME%'s Mod Server" /wait %EXE_DZSAL% %DZSAL_PARAMETERS%
 )
@@ -258,7 +253,7 @@ SET /A LOOPS+=1
 TIMEOUT /t 5
 TASKLIST /FI "%T_NAME%" 2>NUL | find /I /N "%PORT%">NUL
 IF "%ERRORLEVEL%"=="0" GOTO LOOP
-GOTO loop
+GOTO LOOP
 
 :: Generic error catching
 :ERROR

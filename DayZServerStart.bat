@@ -216,7 +216,7 @@ IF "%LOOPS%" NEQ "0" (
 :: Uses https://www.redolive.com/utah-web-designers-blog/automated-mysql-backup-for-windows
 IF %BACKUP% == true (
 	ECHO MESSAGE: Starting Database Backup
-	START /wait %PATH_TO_SQL_BACKUP%
+	START "%S_NAME%'s Mod Server" /wait %PATH_TO_SQL_BACKUP%
 	IF "%MOVE_BACKUP%" == true (
 		MOVE /wait /-Y  "%BACKUP_FROM%"*.* "%BACKUP_TO%"
 	)
@@ -226,7 +226,7 @@ IF %BACKUP% == true (
 IF %USE_STEAM_UPDATER% == true (
 	ECHO MESSAGE: Steam Automatic Update Starting
 	CD %PATH_TO_STEAM_CMD_EXE%
-	START /wait "SteamCMD.exe" +login %ACCOUNT_NAME% %ACCOUNT_PASSWORD% +force_install_dir %EXE_PATH% +app_update 223350 %ADDITIONAL_ITEMS% validate +quit
+	START "%S_NAME%" /wait %PATH_TO_STEAM_CMD_EXE%"SteamCMD.exe" +login %ACCOUNT_NAME% %ACCOUNT_PASSWORD% +force_install_dir %EXE_PATH% +app_update 223350 %ADDITIONAL_ITEMS% validate +quit
 	ECHO MESSAGE: Steam Automatic Update Completed
 )
 
@@ -236,12 +236,11 @@ START "%S_NAME%" /wait %EXE_PATH%%EXE% -mod=%MODLIST% -config=%CONFIG% -profiles
 ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it will restart
 
 IF %USE_DZSAL_MODSERVER% == true (
-    ECHO MESSAGE: Starting Mod Server
-    START "%S_NAME%'s Mod Server" /wait %EXE_DZSAL% %DZSAL_PARAMETERS%
+	ECHO MESSAGE: Starting Mod Server
+	START "%S_NAME%'s Mod Server" /wait %EXE_DZSAL% %DZSAL_PARAMETERS%
 )
 ECHO.
 GOTO LOOPING
-
 
 :: Monitoring Loop
 :LOOP

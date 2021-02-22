@@ -41,6 +41,10 @@ SET CONFIG=serverDZ.cfg
 :: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
 :: Cannot be blank
 SET PROFILE=DayZServer
+:: Restart timeout in seconds
+:: For example, 3 hour restarts would be 3 * 60 = 10800
+:: Set to 0 to disable automatic restarts
+SET RESTART_TIMEOUT=10800
 
 :: Extra launch parameters
 :: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
@@ -158,6 +162,12 @@ ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it
 IF %USE_DZSAL_MODSERVER% ==true (
 	ECHO MESSAGE: Starting Mod Server
 	START %S_NAME% /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
+)
+
+TIMEOUT %RESTART_TIMEOUT%
+TASKKILL /im %EXE% /F
+IF %USE_DZSAL_MODSERVER% ==true (
+	ASKKILL /im %EXE_DZSAL%% /F
 )
 TIMEOUT 30
 ECHO.

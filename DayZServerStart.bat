@@ -9,7 +9,9 @@ ECHO MESSAGE: Pre startup initialised
 :: Command window name, does not affect anything else
 :: Default is: DayZ Server
 SET S_NAME=DayZServer
-:: Path to the DayZ server executable, for example:  C:\Program Files (x86)\Steam\steamapps\common\DayZServer\ or C:\dayzserver\
+:: Path to the DayZ server executable,
+:: For example: "C:\Program Files (x86)\Steam\steamapps\common\DayZServer\ or C:\dayzserver\
+:: Supports Running from different drives, for network paths, mount to drive letter or see UNC Path help
 :: Cannot be blank
 SET EXE_PATH="C:\Program Files (x86)\Steam\steamapps\common\DayZServer\"
 :: Name of executable
@@ -164,11 +166,16 @@ IF %USE_DZSAL_MODSERVER% ==true (
 	START %S_NAME% /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
 )
 
+IF %TIMEOUT%=0 (
+ GOTO RESTART_SKIP
+)
 TIMEOUT %RESTART_TIMEOUT%
 TASKKILL /im %EXE% /F
 IF %USE_DZSAL_MODSERVER% ==true (
-	ASKKILL /im %EXE_DZSAL%% /F
+	TASKKILL /im %EXE_DZSAL% /F
 )
+)
+:RESTART_SKIP
 TIMEOUT 30
 ECHO.
 

@@ -10,7 +10,7 @@ ECHO MESSAGE: Pre startup initialised
 :: Default is: DayZ Server
 SET S_NAME=DayZServer
 :: Path to the DayZ server executable,
-:: For example: "C:\Program Files (x86)\Steam\steamapps\common\DayZServer\ or C:\dayzserver\
+:: For example: "C:\Program Files (x86)\Steam\steamapps\common\DayZServer\ or "C:\dayzserver"
 :: Supports Running from different drives, for network paths, mount to drive letter or see UNC Path help
 :: Cannot be blank
 SET EXE_PATH="C:\Program Files (x86)\Steam\steamapps\common\DayZServer\"
@@ -47,6 +47,18 @@ SET PROFILE=DayZServer
 :: For example, 3 hour restarts would be 3 * 60 = 10800
 :: Set to 0 to disable automatic restarts
 SET RESTART_TIMEOUT=10800
+:: Enables the BattleEye Client to monitor/admin the server and is a core process for dayz,
+:: Set to true to enable, false to disable
+:: Default is: true
+SET USE_BEC=true
+:: Path of the BattleEye Client (BEC)
+:: For Example: "C:\Program Files (x86)\Steam\steamapps\common\DayZServer\BEC"
+:: Cannot be blank
+SET BEC_EXE_PATH="C:\Program Files (x86)\Steam\steamapps\common\DayZServer\BEC"
+:: Name of BEC executable
+:: Default is: "bec.exe"
+:: Cannot be blank
+SET BEC_EXE="bec.exe"
 
 :: Extra launch parameters
 :: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
@@ -160,6 +172,12 @@ IF %LOOPS% NEQ 0 (
 CD /D %EXE_PATH%
 START "%S_NAME%" /MIN /D %EXE_PATH% %EXE% -profile=%PROFILE% -config=%CONFIG% -port=%PORT% -cpuCount=%CPU_CORES% %MODLIST% %SERVERMODLIST% %ADDITIONAL_PARAMETERS%
 ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it will restart
+:: Start BEC if true
+IF %USE_BEC% ==true (
+	ECHO MESSAGE: Starting BEC
+	START %S_NAME% /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
+	TIMEOUT 10
+)
 :: Start DZSAL Mod Server if true
 IF %USE_DZSAL_MODSERVER% ==true (
 	ECHO MESSAGE: Starting Mod Server
@@ -174,6 +192,8 @@ TASKKILL /im %EXE% /F
 IF %USE_DZSAL_MODSERVER% ==true (
 	TASKKILL /im %EXE_DZSAL% /F
 )
+IF %USE_BEC% ==true (
+	TASKKILL /im %BEC_EXE% /F
 )
 :RESTART_SKIP
 TIMEOUT 30

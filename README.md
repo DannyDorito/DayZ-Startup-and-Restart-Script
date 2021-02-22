@@ -25,7 +25,8 @@ Click [Here](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script) f
 * Crash/Restart monitor - this uses the Task Manager and not address pinging
 * The last start date & time of the server
 * Optional DayZ Standalone Launcher mod download server - Allows players to download mods through the DayZ SA Launcher
-* Optional Database backup script, with option to move to another cloud synced directory
+* Optional BEC Support
+* Optional Restart Support
 * Optional Steam Automatic updater for DayZ and Mods
 
 ## FAQ

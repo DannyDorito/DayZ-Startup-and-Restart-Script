@@ -3,16 +3,9 @@
 :: By: Jstrow and Danny Dorito, originally for CSG Exile
 :: Minor edits and support by NIXON : https://github.com/niklashenrixon
 ::
-:: test.bat > batch.log 2>&1
-IF (%~n0 == "test") (
-	@ECHO ON
-)
-IF NOT (%~n0 == "test") (
-	@ECHO OFF
-)
+@ECHO OFF
 COLOR F
 ECHO MESSAGE: Pre startup initialised
-
 :: Command window name, does not affect anything else
 :: Default is: DayZ Server
 SET S_NAME=DayZServer
@@ -106,12 +99,18 @@ IF %PORT% ==0 (
 	GOTO CONFIG_ERROR
 )
 
-IF %USE_DZSAL_MODSERVER% ==true (
-	IF %EXE_PATH% ==changeme (
-		SET ERROR=DZSAL_PARAMETERS
-		GOTO CONFIG_ERROR
-	)
+IF %USE_DZSAL_MODSERVER% ==false (
+	GOTO NO_DZSAL_MODSERVER
 )
+IF %EXE_DZSAL% ==changeme (
+	SET ERROR=EXE_DZSAL
+	GOTO CONFIG_ERROR
+)
+IF %DZSAL_PARAMETERS% ==changeme (
+	SET ERROR=DZSAL_PARAMETERS
+	GOTO CONFIG_ERROR
+)
+:NO_DZSAL_MODSERVER
 
 IF %USE_STEAM_UPDATER% ==false (
 	GOTO NO_STEAM
@@ -152,20 +151,16 @@ IF %LOOPS% NEQ 0 (
 )
 
 :: Start the DayZ Server
-::CD /D %EXE_PATH%
 CD /D %EXE_PATH%
-START "%S_NAME%" /wait /D %EXE_PATH% %EXE% -profile=%PROFILE% -config=%CONFIG% -port=%PORT% -cpuCount=%CPU_CORES% %MODLIST% %SERVERMODLIST% %ADDITIONAL_PARAMETERS%
+START "%S_NAME%" /MIN /D %EXE_PATH% %EXE% -profile=%PROFILE% -config=%CONFIG% -port=%PORT% -cpuCount=%CPU_CORES% %MODLIST% %SERVERMODLIST% %ADDITIONAL_PARAMETERS%
 ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it will restart
+:: Start DZSAL Mod Server if true
 IF %USE_DZSAL_MODSERVER% ==true (
 	ECHO MESSAGE: Starting Mod Server
 	START %S_NAME% /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
-	TIMEOUT 30
 )
+TIMEOUT 30
 ECHO.
-
-:: Monitoring Loop
-:LOOP
-ECHO WARNING: Server is already running, running monitoring loop
 
 :: Restart/Crash Handler
 :LOOPING
@@ -176,8 +171,8 @@ ECHO %ERRORLEVEL%
 IF %ERRORLEVEL%==0 GOTO LOOPING
 GOTO LOOP
 
-:: Generic error catching
-:ERROR
+:: Generic config error catching
+:CONFIG_ERROR
 COLOR C
 ECHO ERROR: %ERROR% not set correctly, please check the config
 PAUSE

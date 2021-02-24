@@ -175,13 +175,13 @@ ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it
 :: Start BEC if true
 IF %USE_BEC% ==true (
 	ECHO MESSAGE: Starting BEC
-	START %S_NAME% /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
+	START "%S_NAME%" /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
 	TIMEOUT 10
 )
 :: Start DZSAL Mod Server if true
 IF %USE_DZSAL_MODSERVER% ==true (
 	ECHO MESSAGE: Starting Mod Server
-	START %S_NAME% /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
+	START "%S_NAME%" /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
 )
 
 IF %RESTART_TIMEOUT%=0 (

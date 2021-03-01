@@ -31,12 +31,8 @@ Click [Here](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script) f
 
 ## FAQ
 
-### How do I use this
+FAQ has been moved to the [Getting Started Wiki Page](https://github.com/DannyDorito/DayZ-Startup-and-Restart-Script/wiki/Getting-Started)
 
-1. Forking this repo will be public, **do not** put sensitive information such as passwords into your **public** repo or **any** repo.
-2. Download the latest version
-3. Place in a suitable directory, for example your Desktop
-4. Replace all of the variables that you require, e.g. ![set path_to_ServervarsArma3Profile=changeme](https://i.imgur.com/svri9W0.png) to: ![set path_to_ServervarsArma3Profile=C:\arma\CSG\Users\CSG\CSG.vars.Arma3Profile](https://i.imgur.com/p27kTKK.png)
-5. Enabling some features, for example to enable Steam auto updates find: ![set use_steam_updater=false](https://i.imgur.com/dnlZHqs.png) and change it to: ![set use_steam_updater=true](https://i.imgur.com/7OPRUDR.png) Some features require more variables to be set, if unsure run the ``DayZServerStart.bat`` file and see if there are any errors **if so**, repeat step 3 and 4.
-6. Run the ``DayZServerStart.bat`` fill and see if there are any errors, **if so**, repeat step 3 and 4.
-7. To shutdown the server, close the console window first (and all other windows), **then** shutdown the server or it will automatically restart.
+## Problems/Feature Updates
+
+Any issues or requests, please create an issue [here](https://github.com/DannyDorito/DayZ-Startup-and-Restart-Script/issues).

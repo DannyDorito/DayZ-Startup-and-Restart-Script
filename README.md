@@ -6,18 +6,12 @@ This is .bat file for **all** your DayZ Server startup needs!
 
 Created by: **Jstrow** and **DannyDorito** originally for [CSG Exile](https://www.csgcommunity.com)
 
-Contributor: [NIXON](https://github.com/niklashenrixon)
+Contributor and support: [NIXON](https://github.com/niklashenrixon)
 
 Forking this repo will be public, **do not** put sensitive information such as passwords into your **public** repo.
 A better alternative is a private repo, which GitHub now offers free for all users, so download a copy of this one and create your own!
 
 Click [Here](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script) for the ARMA 3 Version!
-
-## Check out our Twitter
-
-[@JohnAllis0n](https://twitter.com/JohnAllis0n)
-
-[@CSG_Exile](https://twitter.com/CSG_Exile)
 
 ## Features
 
@@ -36,3 +30,9 @@ FAQ has been moved to the [Getting Started Wiki Page](https://github.com/DannyDo
 ## Problems/Feature Updates
 
 Any issues or requests, please create an issue [here](https://github.com/DannyDorito/DayZ-Startup-and-Restart-Script/issues).
+
+## Check out our Twitter
+
+[@JohnAllis0n](https://twitter.com/JohnAllis0n)
+
+[@CSG_Exile](https://twitter.com/CSG_Exile)

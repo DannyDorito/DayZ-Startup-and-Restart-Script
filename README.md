@@ -1,35 +1,42 @@
-# DayZ Startup & Restart Script
+# DayZ Startup Script
 
-Originally created for the ARMA 3 Exile Mod, now adapted for DayZ Servers!
-
-This is .bat file for **all** your DayZ Server startup needs!
+The best script for creating a DayZ server, a .bat file for **all** your DayZ Server startup needs!
 
 Created by: **Jstrow** and **DannyDorito** originally for [CSG Exile](https://www.csgcommunity.com)
 
 Contributor and support: [NIXON](https://github.com/niklashenrixon)
 
-Forking this repo will be public, **do not** put sensitive information such as passwords into your **public** repo.
-A better alternative is a private repo, which GitHub now offers free for all users, so download a copy of this one and create your own!
-
-Click [Here](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script) for the ARMA 3 Version!
+Forking this repo will be public, **do not** put sensitive information such as passwords into your **public** repo, please see the licence for this software [here](https://github.com/DannyDorito/DayZ-Startup-and-Restart-Script/blob/master/LICENSE)
 
 ## Features
 
-* Server startup - parameters, mods, server mods, optional arguments for potential performance increase
-* Crash/Restart monitor - this uses the Task Manager and not address pinging
-* The last start date & time of the server
-* Optional DayZ Standalone Launcher mod download server - Allows players to download mods through the DayZ SA Launcher
-* Optional BEC Support
-* Optional Restart Support
-* Optional Steam Automatic updater for DayZ and Mods
+* DayZ Server Restart and Startup - no more server host admin panels
+* Easy to use server configuration - perfect for first time server admins
+* Mod Support - for adding mods to your server
+* Server Mod Support - for adding server side mods
+* Automatic CPU core detection - for simpler configuration and performance improvements
+* Startup Arguments - for more experienced admins that want to customize their own startup parameters
+* Crash Monitor - for making sure your server stays up, uses tasklist and pinging for more reliability
+* Restart Timer - for automatic DayZ server restarts
+* BEC Support - essential for administration
 
-## FAQ
+## Optional Features
+* BEC Support - essential for administration* 
+* Startup Arguments - for more experienced admins that want to customize their own startup parameters
+* DayZ Standalone Launcher Mod Download Server - Allows players to download mods through the DayZ SA Launcher
+* Steam Automatic updater - keep DayZ and all of your mods updated
 
-FAQ has been moved to the [Getting Started Wiki Page](https://github.com/DannyDorito/DayZ-Startup-and-Restart-Script/wiki/Getting-Started)
+## FAQ/Getting Started
+
+[Getting Started Wiki Page](https://github.com/DannyDorito/DayZ-Startup-and-Restart-Script/wiki/Getting-Started)
 
 ## Problems/Feature Updates
 
 Any issues or requests, please create an issue [here](https://github.com/DannyDorito/DayZ-Startup-and-Restart-Script/issues).
+
+## ARMA 3 Version 
+
+[ARMA 3 Startup and Restart Script](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script)
 
 ## Check out our Twitter
 

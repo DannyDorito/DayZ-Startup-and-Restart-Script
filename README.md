@@ -21,7 +21,6 @@ Forking this repo will be public, **do not** put sensitive information such as p
 * BEC Support - essential for administration
 
 ## Optional Features
-* BEC Support - essential for administration
 * Startup Arguments - for more experienced admins that want to customize their own startup parameters
 * DayZ Standalone Launcher Mod Download Server - Allows players to download mods through the DayZ SA Launcher
 * Steam Automatic updater - keep DayZ and all of your mods updated

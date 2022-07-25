@@ -47,6 +47,10 @@ SET PROFILE=DayZServer
 :: For example, 3 hour restarts would be 3 * 60 = 10800
 :: Set to 0 to disable automatic restarts
 SET RESTART_TIMEOUT=10800
+:: FPS limit for the server
+:: Max is 200
+:: Default is: 200
+SET SERVER_FPS_LIMIT=200
 :: Enables the BattleEye Client to monitor/admin the server and is a core process for dayz,
 :: Set to true to enable, false to disable
 :: Default is: true
@@ -61,8 +65,8 @@ SET BEC_EXE_PATH="C:\Program Files (x86)\Steam\steamapps\common\DayZServer\BEC"
 SET BEC_EXE="bec.exe"
 
 :: Extra launch parameters
-:: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
-SET ADDITIONAL_PARAMETERS=-doLogs -adminLog -netLog -freezeCheck
+:: For more info see: https://community.bistudio.com/wiki/DayZ:Server_Configuration
+SET ADDITIONAL_PARAMETERS=-doLogs -adminLog -netLog -freezeCheck -filePatching
 
 :: Enables the DayZ SA Launcher to download mods running on the server,
 :: For more info see: https://dayzsalauncher.com/#/tools
@@ -116,7 +120,14 @@ IF %PORT% ==0 (
 	SET ERROR=PORT
 	GOTO CONFIG_ERROR
 )
-
+IF %SERVER_FPS_LIMIT% GTR 200 (
+	SET ERROR=SERVER_FPS_LIMIT
+	GOTO CONFIG_ERROR
+)
+IF %SERVER_FPS_LIMIT LEQ 1 (
+	SET ERROR=SERVER_FPS_LIMIT
+	GOTO CONFIG_ERROR
+)
 IF %USE_DZSAL_MODSERVER% ==false (
 	GOTO NO_DZSAL_MODSERVER
 )
@@ -124,10 +135,13 @@ IF %EXE_DZSAL% ==changeme (
 	SET ERROR=EXE_DZSAL
 	GOTO CONFIG_ERROR
 )
+
 IF %DZSAL_PARAMETERS% ==changeme (
 	SET ERROR=DZSAL_PARAMETERS
 	GOTO CONFIG_ERROR
 )
+
+:: Skip if DZSAL is disabled
 :NO_DZSAL_MODSERVER
 
 IF %USE_STEAM_UPDATER% ==false (
@@ -146,6 +160,7 @@ IF %ACCOUNT_PASSWORD% ==changeme (
 	GOTO CONFIG_ERROR
 )
 
+:: Skip if SteamCMD update is disabled
 :NO_STEAM
 
 ECHO.
@@ -170,7 +185,7 @@ IF %LOOPS% NEQ 0 (
 
 :: Start the DayZ Server
 CD /D %EXE_PATH%
-START "%S_NAME%" /MIN /D %EXE_PATH% %EXE% -profile=%PROFILE% -config=%CONFIG% -port=%PORT% -cpuCount=%CPU_CORES% %MODLIST% %SERVERMODLIST% %ADDITIONAL_PARAMETERS%
+START "%S_NAME%" /MIN /D %EXE_PATH% %EXE% -profile=%PROFILE% -config=%CONFIG% -port=%PORT% -cpuCount=%CPU_CORES% -limitFPS=%SERVER_FPS_LIMIT% %MODLIST% %SERVERMODLIST% %ADDITIONAL_PARAMETERS%
 ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it will restart
 :: Start BEC if true
 IF %USE_BEC% ==true (

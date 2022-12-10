@@ -41,6 +41,7 @@ SET CONFIG=serverDZ.cfg
 :: Can use a file path, with environment vars, such as C:\Users\%USER%\Documents\DayZServer
 :: or a string to keep the logs where EXE_PATH is
 :: For more info see: https://forums.dayz.com/topic/239635-dayz-server-files-documentation/?tab=comments#comment-2396561
+:: Default is: DayZServer
 :: Cannot be blank
 SET PROFILE=DayZServer
 :: Restart timeout in seconds
@@ -66,6 +67,7 @@ SET BEC_EXE="bec.exe"
 
 :: Extra launch parameters
 :: For more info see: https://community.bistudio.com/wiki/DayZ:Server_Configuration
+:: Default is: "-doLogs -adminLog -netLog -freezeCheck -filePatching"
 SET ADDITIONAL_PARAMETERS=-doLogs -adminLog -netLog -freezeCheck -filePatching
 
 :: Enables the DayZ SA Launcher to download mods running on the server,
@@ -74,7 +76,7 @@ SET ADDITIONAL_PARAMETERS=-doLogs -adminLog -netLog -freezeCheck -filePatching
 :: Default is: false
 SET USE_DZSAL_MODSERVER=false
 :: Name of DayZ SA Launcher Mod Server exe
-:: Default is: DZSALModServer.exe
+:: Default is: "DZSALModServer.exe"
 SET EXE_DZSAL="DZSALModServer.exe"
 :: Extra launch parameters
 :: For more info see command line parameters section of: https://dayzsalauncher.com/#/tools
@@ -89,7 +91,7 @@ SET USE_STEAM_UPDATER=false
 :: Cannot be blank
 SET PATH_TO_STEAM_CMD_EXE="changeme"
 :: Name of executable
-:: Default is: 'SteamCMD.exe'
+:: Default is: "SteamCMD.exe"
 :: Cannot be blank
 SET STEAMCMD="SteamCMD.exe"
 :: Name of the Steam account that SteamCMD uses
@@ -124,7 +126,7 @@ IF %SERVER_FPS_LIMIT% GTR 200 (
 	SET ERROR=SERVER_FPS_LIMIT
 	GOTO CONFIG_ERROR
 )
-IF %SERVER_FPS_LIMIT LEQ 1 (
+IF %SERVER_FPS_LIMIT% LEQ 1 (
 	SET ERROR=SERVER_FPS_LIMIT
 	GOTO CONFIG_ERROR
 )

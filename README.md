@@ -19,6 +19,8 @@ Forking this repo will be public, **do not** put sensitive information such as p
 * Crash Monitor - for making sure your server stays up, uses tasklist and pinging for more reliability
 * Restart Timer - for automatic DayZ server restarts
 * BEC Support - essential for administration
+* FPS Limit - limit server fps
+* File Patching - ensures that only PBOs are loaded and not unpacked data
 
 ## Optional Features
 * Startup Arguments - for more experienced admins that want to customize their own startup parameters
@@ -33,7 +35,7 @@ Forking this repo will be public, **do not** put sensitive information such as p
 
 Any issues or requests, please create an issue [here](https://github.com/DannyDorito/DayZ-Startup-and-Restart-Script/issues).
 
-## ARMA 3 Version 
+## ARMA 3 Version
 
 [ARMA 3 Startup and Restart Script](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script)
 

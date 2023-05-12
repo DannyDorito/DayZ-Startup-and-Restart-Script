@@ -2,7 +2,7 @@
 
 The best script for creating a DayZ server, a .bat file for **all** your DayZ Server startup needs!
 
-Created by: **Jstrow** and **DannyDorito** originally for [CSG Exile](https://www.csgcommunity.com)
+Created by: **Jstrow** and **DannyDorito** originally for [CSG Exile](https://csgcommunity.com)
 
 Contributor and support: [NIXON](https://github.com/niklashenrixon)
 

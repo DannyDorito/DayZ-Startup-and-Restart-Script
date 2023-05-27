@@ -39,6 +39,10 @@ Any issues or requests, please create an issue [here](https://github.com/DannyDo
 
 [ARMA 3 Startup and Restart Script](https://github.com/DannyDorito/ARMA-3-Startup-and-Restart-Script)
 
+## ARMA Reforger Version
+
+[ARMA Reforger Startup and Restart Script](https://github.com/DannyDorito/ARMA-Reforger-Startup-and-Restart-Script)
+
 ## Check out our Twitter
 
 [@JohnAllis0n](https://twitter.com/JohnAllis0n)

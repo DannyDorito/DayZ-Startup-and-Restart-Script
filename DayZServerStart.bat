@@ -187,7 +187,7 @@ IF %LOOPS% NEQ 0 (
 
 :: Start the DayZ Server
 CD /D %EXE_PATH%
-START "%S_NAME%" /MIN /D %EXE_PATH% %EXE% -profile=%PROFILE% -config=%CONFIG% -port=%PORT% -cpuCount=%CPU_CORES% -limitFPS=%SERVER_FPS_LIMIT% %MODLIST% %SERVERMODLIST% %ADDITIONAL_PARAMETERS%
+START "%S_NAME%" /MIN /D %EXE_PATH% %EXE% -profiles=%PROFILE% -config=%CONFIG% -port=%PORT% -cpuCount=%CPU_CORES% -limitFPS=%SERVER_FPS_LIMIT% %MODLIST% %SERVERMODLIST% %ADDITIONAL_PARAMETERS%
 ECHO MESSAGE: To stop the server, close %~nx0 then the other tasks, otherwise it will restart
 :: Start BEC if true
 IF %USE_BEC% ==true (
@@ -201,7 +201,7 @@ IF %USE_DZSAL_MODSERVER% ==true (
 	START "%S_NAME%" /MIN %EXE_DZSAL% %DZSAL_PARAMETERS%
 )
 
-IF %RESTART_TIMEOUT%=0 (
+IF %RESTART_TIMEOUT% ==0 (
  GOTO RESTART_SKIP
 )
 TIMEOUT %RESTART_TIMEOUT%
